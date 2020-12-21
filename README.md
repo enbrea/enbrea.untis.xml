@@ -3,7 +3,7 @@
 
 # ENBREA UNTIS.XML
 
-A .NET Core library for reading XML export files from the timetabling software [Untis](https://www.untis.at/en). This library supports xml files which are compatible with the following (XML Schema Definition](https://platform.untis.at/downloads/xsd/XmlInterface-3.0.xsd).
+A .NET Core library for reading XML export files from the timetabling software [Untis](https://www.untis.at/en). This library supports xml files which are compatible with the following [XML Schema Definition](https://platform.untis.at/downloads/xsd/XmlInterface-3.0.xsd).
 
 ## Installation
 
