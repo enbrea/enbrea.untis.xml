@@ -313,7 +313,7 @@ namespace Enbrea.Untis.Xml
                         Slot = xmlElement.GetUIntOrDefault("assigned_period"),
                         StartTime = xmlElement.GetTime("assigned_starttime"),
                         EndTime = xmlElement.GetTime("assigned_endtime"),
-                        RoomId = xmlElement.GetReferenceIdOrDefault("assigned_room")
+                        RoomIds = xmlElement.GetReferenceIdArray("assigned_room", "RM")
                     };
                     var prevLessonTime = linkedLessonTimeList.LastOrDefault();
                     if ((prevLessonTime != null) && (prevLessonTime.Day == newTimeElement.Day) && (prevLessonTime.Slot == newTimeElement.Slot - 1))

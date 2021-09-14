@@ -10,6 +10,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 
 namespace Enbrea.Untis.Xml
 {
@@ -29,9 +30,9 @@ namespace Enbrea.Untis.Xml
         public TimeSpan EndTime { get; set; }
 
         /// <summary>
-        /// Room reference
+        /// List of room references
         /// </summary>
-        public string RoomId { get; set; }
+        public List<string> RoomIds { get; set; }
 
         /// <summary>
         /// Time slot 
