@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2020 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) 2021 STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2020 STÜBER SYSTEMS GmbH
+ *    Copyright (C) 2021 STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -10,6 +10,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 
 namespace Enbrea.Untis.Xml
 {
@@ -29,9 +30,9 @@ namespace Enbrea.Untis.Xml
         public TimeSpan EndTime { get; set; }
 
         /// <summary>
-        /// Room reference
+        /// List of room references
         /// </summary>
-        public string RoomId { get; set; }
+        public List<string> RoomIds { get; set; }
 
         /// <summary>
         /// Time slot 
