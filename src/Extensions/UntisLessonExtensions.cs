@@ -21,10 +21,10 @@ namespace Enbrea.Untis.Xml
     {
         public static IEnumerable<DateTime> GetDateInstances(this UntisLesson lesson, DateTime OccurenceStartDate, DayOfWeek day)
         {
-            if ((!string.IsNullOrEmpty(lesson.Occurence)) && (lesson.ValidFrom != null) && (lesson.ValidTo != null))
+            if (!string.IsNullOrEmpty(lesson.Occurence))
             {
-                var startDate = (DateTime)lesson.ValidFrom;
-                var endDate = (DateTime)lesson.ValidTo;
+                var startDate = lesson.ValidFrom;
+                var endDate = lesson.ValidTo;
                 var currentDate = startDate;
 
                 if (currentDate.DayOfWeek > day)
