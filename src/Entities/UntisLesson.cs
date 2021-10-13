@@ -55,9 +55,9 @@ namespace Enbrea.Untis.Xml
 
         public List<UntisLessonTime> Times { get; set; }
 
-        public DateTime? ValidFrom { get; set; }
+        public DateTime ValidFrom { get; set; }
 
-        public DateTime? ValidTo { get; set; }
+        public DateTime ValidTo { get; set; }
 
         public UntisPeriodicWeek? Week { get; set; }
     }
