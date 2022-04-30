@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2021 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) 2022 STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2021 STÜBER SYSTEMS GmbH
+ *    Copyright (C) 2022 STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -26,22 +26,22 @@ namespace Enbrea.Untis.Xml.Tests
             var lesson = new UntisLesson()
             {
                 Occurence = "11111FF00000FF1111FFF00000FF11111FF00000FF11111FFFFFFFFFFFFFFFF00000FF11111FF",
-                ValidFrom = new DateTime(2009, 8, 24, 0, 0, 0, 0),
-                ValidTo = new DateTime(2010, 7, 16, 0, 0, 0, 0)
+                ValidFrom = new DateOnly(2009, 8, 24),
+                ValidTo = new DateOnly(2010, 7, 16)
             };
 
-            IEnumerator<DateTime> enumerator = lesson.GetDateInstances(new DateTime(2009, 8, 24, 0, 0, 0, 0), DayOfWeek.Tuesday).GetEnumerator();
+            IEnumerator<DateOnly> enumerator = lesson.GetDateInstances(new DateOnly(2009, 8, 24), DayOfWeek.Tuesday).GetEnumerator();
 
             Assert.True(enumerator.MoveNext());
-            Assert.Equal(new DateTime(2009, 8, 25, 0, 0, 0, 0), enumerator.Current);
+            Assert.Equal(new DateOnly(2009, 8, 25), enumerator.Current);
             Assert.True(enumerator.MoveNext());
-            Assert.Equal(new DateTime(2009, 8, 25, 0, 0, 0, 0).AddDays(14), enumerator.Current);
+            Assert.Equal(new DateOnly(2009, 8, 25).AddDays(14), enumerator.Current);
             Assert.True(enumerator.MoveNext());
-            Assert.Equal(new DateTime(2009, 8, 25, 0, 0, 0, 0).AddDays(28), enumerator.Current);
+            Assert.Equal(new DateOnly(2009, 8, 25).AddDays(28), enumerator.Current);
             Assert.True(enumerator.MoveNext());
-            Assert.Equal(new DateTime(2009, 8, 25, 0, 0, 0, 0).AddDays(42), enumerator.Current);
+            Assert.Equal(new DateOnly(2009, 8, 25).AddDays(42), enumerator.Current);
             Assert.True(enumerator.MoveNext());
-            Assert.Equal(new DateTime(2009, 8, 25, 0, 0, 0, 0).AddDays(70), enumerator.Current);
+            Assert.Equal(new DateOnly(2009, 8, 25).AddDays(70), enumerator.Current);
         }
     }
 }

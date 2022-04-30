@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2021 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) 2022 STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2021 STÜBER SYSTEMS GmbH
+ *    Copyright (C) 2022 STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -29,7 +29,7 @@ namespace Enbrea.Untis.Xml
         
         public TimeSpan? Duration { get; set; }
         
-        public DateTime? EndDate { get; set; }
+        public DateOnly? EndDate { get; set; }
         
         public string ForegroundColor { get; set; }
         
@@ -39,7 +39,7 @@ namespace Enbrea.Untis.Xml
         
         public uint Slots { get; set; }
         
-        public DateTime? StartDate { get; set; }
+        public DateOnly? StartDate { get; set; }
         
         public List<string> StudentGroupIds { get; set; }
 
@@ -55,9 +55,9 @@ namespace Enbrea.Untis.Xml
 
         public List<UntisLessonTime> Times { get; set; }
 
-        public DateTime ValidFrom { get; set; }
+        public DateOnly ValidFrom { get; set; }
 
-        public DateTime ValidTo { get; set; }
+        public DateOnly ValidTo { get; set; }
 
         public UntisPeriodicWeek? Week { get; set; }
     }

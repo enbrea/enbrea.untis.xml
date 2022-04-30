@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2021 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) 2022 STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2021 STÜBER SYSTEMS GmbH
+ *    Copyright (C) 2022 STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -24,17 +24,17 @@ namespace Enbrea.Untis.Xml
     /// </summary>
     public static class XElementExtensions
     {
-        public const string UntisDateTimeFormat = "yyyyMMdd";
+        public const string UntisDateFormat = "yyyyMMdd";
         public const string UntisDurationFormat = "hh:mm";
         public const string UntisTimeFormat = "hhmm";
 
-        public static DateTime GetDateTime(this XElement xElement, string name)
+        public static DateOnly GetDate(this XElement xElement, string name)
         {
             var subElement = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == name);
             if (subElement != null)
             {
-                return DateTime.ParseExact(subElement.Value,
-                    UntisDateTimeFormat,
+                return DateOnly.ParseExact(subElement.Value,
+                    UntisDateFormat,
                     CultureInfo.InvariantCulture,
                     DateTimeStyles.None);
             }
@@ -44,13 +44,13 @@ namespace Enbrea.Untis.Xml
             }
         }
 
-        public static DateTime GetDateTimeOrDefault(this XElement xElement, string name)
+        public static DateOnly GetDateOrDefault(this XElement xElement, string name)
         {
             var subElement = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == name);
             if (subElement != null)
             {
-                return DateTime.ParseExact(subElement.Value,
-                    UntisDateTimeFormat,
+                return DateOnly.ParseExact(subElement.Value,
+                    UntisDateFormat,
                     CultureInfo.InvariantCulture,
                     DateTimeStyles.None);
             }

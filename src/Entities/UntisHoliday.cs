@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2021 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) 2022 STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2021 STÜBER SYSTEMS GmbH
+ *    Copyright (C) 2022 STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -18,9 +18,9 @@ namespace Enbrea.Untis.Xml
     /// </summary>
     public class UntisHoliday : UntisEntityWithShortName
     {
-        public DateTime EndTime { get; set; }
+        public DateOnly EndTime { get; set; }
         public string LongName { get; set; }
-        public DateTime StartTime { get; set; }
+        public DateOnly StartTime { get; set; }
         public UntisHolidayType Type { get; set; }
     }
 }

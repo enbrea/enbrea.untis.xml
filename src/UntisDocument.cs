@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2021 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) 2022 STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2021 STÜBER SYSTEMS GmbH
+ *    Copyright (C) 2022 STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -161,8 +161,8 @@ namespace Enbrea.Untis.Xml
                 TeacherId = xmlElement.GetReferenceIdOrDefault("class_teacher"),
                 LessonTableId = xmlElement.GetReferenceIdOrDefault("lessonstable"),
                 Level = xmlElement.GetValueOrDefault("classlevel"),
-                ValidFrom = xmlElement.GetDateTimeOrDefault("begindate"),
-                ValidTo = xmlElement.GetDateTimeOrDefault("eenddate"),
+                ValidFrom = xmlElement.GetDateOrDefault("begindate"),
+                ValidTo = xmlElement.GetDateOrDefault("eenddate"),
                 ForeignKey = xmlElement.GetValueOrDefault("foreignkey"),
                 TimeGridId = xmlElement.GetValueOrDefault("timegrid"),
             });
@@ -230,11 +230,11 @@ namespace Enbrea.Untis.Xml
         {
             GeneralSettings.SchoolName = xmlElement.GetValueOrDefault("schoolname");
             GeneralSettings.SchoolNo = xmlElement.GetUIntOrDefault("schoolnumber");
-            GeneralSettings.SchoolYearBeginDate = xmlElement.GetDateTime("schoolyearbegindate");
-            GeneralSettings.SchoolYearEndDate = xmlElement.GetDateTime("schoolyearenddate");
+            GeneralSettings.SchoolYearBeginDate = xmlElement.GetDate("schoolyearbegindate");
+            GeneralSettings.SchoolYearEndDate = xmlElement.GetDate("schoolyearenddate");
             GeneralSettings.TermName = xmlElement.GetValueOrDefault("termname");
-            GeneralSettings.TermBeginDate = xmlElement.GetDateTime("termbegindate");
-            GeneralSettings.TermEndDate = xmlElement.GetDateTime("termenddate");
+            GeneralSettings.TermBeginDate = xmlElement.GetDate("termbegindate");
+            GeneralSettings.TermEndDate = xmlElement.GetDate("termenddate");
         }
 
         /// <summary>
@@ -248,8 +248,8 @@ namespace Enbrea.Untis.Xml
                 Id = xmlElement.Attribute("id").Value,
                 Type = xmlElement.GetHolidayType("type"),
                 LongName = xmlElement.GetValue("longname"),
-                StartTime = xmlElement.GetDateTime("starttime"),
-                EndTime = xmlElement.GetDateTime("endtime")
+                StartTime = xmlElement.GetDate("starttime"),
+                EndTime = xmlElement.GetDate("endtime")
             });
         }
 
@@ -285,10 +285,10 @@ namespace Enbrea.Untis.Xml
                 StudentGroupIds = xmlElement.GetReferenceIdArray("lesson_studentgroups", "SG"),
                 StudentIds = xmlElement.GetReferenceIdArray("lesson_students", "ST"),
                 DateSchemeId = xmlElement.GetReferenceIdOrDefault("lesson_date_scheme"),
-                StartDate = xmlElement.GetDateTimeOrDefault("begindate"),
-                EndDate = xmlElement.GetDateTimeOrDefault("enddate"),
-                ValidFrom = xmlElement.GetDateTime("effectivebegindate"),
-                ValidTo = xmlElement.GetDateTime("effectiveenddate"),
+                StartDate = xmlElement.GetDateOrDefault("begindate"),
+                EndDate = xmlElement.GetDateOrDefault("enddate"),
+                ValidFrom = xmlElement.GetDate("effectivebegindate"),
+                ValidTo = xmlElement.GetDate("effectiveenddate"),
                 Block = xmlElement.GetValueOrDefault("block"),
                 Week = xmlElement.GetPeriodicWeekOrDefault("week"),
                 TimeGridId = xmlElement.GetValueOrDefault("timegrid"),
@@ -365,7 +365,7 @@ namespace Enbrea.Untis.Xml
                 LastName = xmlElement.GetValueOrDefault("surname"),
                 FirstName = xmlElement.GetValueOrDefault("forename"),
                 Gender = xmlElement.GetGenderOrDefault("gender"),
-                Birthdate = xmlElement.GetDateTimeOrDefault("birthdate"),
+                Birthdate = xmlElement.GetDateOrDefault("birthdate"),
                 IdNumber = xmlElement.GetValueOrDefault("idnumber"),
                 Email = xmlElement.GetValueOrDefault("email"),
                 ClassId = xmlElement.GetReferenceIdOrDefault("student_class"),
@@ -413,7 +413,7 @@ namespace Enbrea.Untis.Xml
                 LastName = xmlElement.GetValueOrDefault("surname"),
                 Title = xmlElement.GetValueOrDefault("title"),
                 Gender = xmlElement.GetGenderOrDefault("gender"),
-                Birthdate = xmlElement.GetDateTimeOrDefault("birthdate"),
+                Birthdate = xmlElement.GetDateOrDefault("birthdate"),
                 Status = xmlElement.GetValueOrDefault("status"),
                 Email = xmlElement.GetValueOrDefault("email"),
                 Phone = xmlElement.GetValueOrDefault("phone"),
