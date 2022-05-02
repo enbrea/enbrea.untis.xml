@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2021 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) 2022 STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2021 STÜBER SYSTEMS GmbH
+ *    Copyright (C) 2022 STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -19,7 +19,7 @@ namespace Enbrea.Untis.Xml
     public class UntisStudent : UntisEntityWithShortName
     {
         public string BackgroundColor { get; set; }
-        public DateTime? Birthdate { get; set; }
+        public DateOnly? Birthdate { get; set; }
         public string ClassId { get; set; }
         public string DescriptionId { get; set; }
         public string Email { get; set; }

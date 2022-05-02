@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2021 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) 2022 STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2021 STÜBER SYSTEMS GmbH
+ *    Copyright (C) 2022 STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -19,8 +19,13 @@ namespace Enbrea.Untis.Xml
     /// </summary>
     public static class UntisLessonExtensions
     {
-        public static IEnumerable<DateTime> GetDateInstances(this UntisLesson lesson, DateTime OccurenceStartDate, DayOfWeek day)
+        public static IEnumerable<DateOnly> GetDateInstances(this UntisLesson lesson, DateOnly OccurenceStartDate, DayOfWeek day)
         {
+            static int DaysBetween(DateOnly d1, DateOnly d2)
+            {
+                return (d1.ToDateTime(TimeOnly.MinValue) - d2.ToDateTime(TimeOnly.MinValue)).Days;
+            }
+
             if (!string.IsNullOrEmpty(lesson.Occurence))
             {
                 var startDate = lesson.ValidFrom;
@@ -38,7 +43,7 @@ namespace Enbrea.Untis.Xml
 
                 while (currentDate <= endDate)
                 {
-                    var d = (currentDate - OccurenceStartDate).Days;
+                    var d = DaysBetween(currentDate, OccurenceStartDate);
 
                     if ((lesson.Occurence.Length >= d) && (lesson.Occurence[d] == '1'))
                     {
