@@ -24,21 +24,21 @@ namespace Enbrea.Untis.Xml
     /// </summary>
     public class UntisDocument
     {
-        public List<UntisClass> Classes = new List<UntisClass>();
-        public List<UntisDepartment> Departments = new List<UntisDepartment>();
-        public List<UntisDescription> Descriptions = new List<UntisDescription>();
-        public UntisGeneralSettings GeneralSettings = new UntisGeneralSettings();
-        public List<UntisHoliday> Holidays = new List<UntisHoliday>();
-        public List<UntisLessonDateScheme> LessonDateSchemes = new List<UntisLessonDateScheme>();
-        public List<UntisLesson> Lessons = new List<UntisLesson>();
-        public List<UntisLessonsTable> LessonsTables = new List<UntisLessonsTable>();
-        public List<UntisRoom> Rooms = new List<UntisRoom>();
-        public List<UntisStudentGroup> StudentGroups = new List<UntisStudentGroup>();
-        public List<UntisStudent> Students = new List<UntisStudent>();
-        public List<UntisSubject> Subjects = new List<UntisSubject>();
-        public List<UntisTeacher> Teachers = new List<UntisTeacher>();
-        public List<UntisTimeGrid> TimeGrids = new List<UntisTimeGrid>();
-        
+        public List<UntisClass> Classes = new();
+        public List<UntisDepartment> Departments = new();
+        public List<UntisDescription> Descriptions = new();
+        public UntisGeneralSettings GeneralSettings = new();
+        public List<UntisHoliday> Holidays = new();
+        public List<UntisLessonDateScheme> LessonDateSchemes = new();
+        public List<UntisLesson> Lessons = new();
+        public List<UntisLessonsTable> LessonsTables = new();
+        public List<UntisRoom> Rooms = new ();
+        public List<UntisStudentGroup> StudentGroups = new();
+        public List<UntisStudent> Students = new();
+        public List<UntisSubject> Subjects = new();
+        public List<UntisTeacher> Teachers = new();
+        public List<UntisTimeGrid> TimeGrids = new();
+
         private readonly string ClassXPathExpr = "//xs:document/xs:classes/xs:class";
         private readonly string DepartmentXPathExpr = "//xs:document/xs:departments/xs:department";
         private readonly string DescriptionXPathExpr = "//xs:document/xs:descriptions/xs:description";
