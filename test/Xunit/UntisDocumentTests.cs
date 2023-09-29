@@ -31,6 +31,8 @@ namespace Enbrea.Untis.Xml.Tests
         {
             Assert.Equal((uint)12345, _untisDocument.GeneralSettings.SchoolNo);
             Assert.Equal("Test Schule", _untisDocument.GeneralSettings.SchoolName);
+            Assert.Equal(new DateOnly(2009, 8, 24), _untisDocument.GeneralSettings.TermBeginDate);
+            Assert.Equal(new DateOnly(2010, 7, 16), _untisDocument.GeneralSettings.TermEndDate);
         }
 
         [Fact]
