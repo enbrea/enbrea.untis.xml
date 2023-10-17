@@ -5,7 +5,7 @@
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<Authors>STÜBER SYSTEMS GmbH</Authors>
 		<Company>STÜBER SYSTEMS GmbH</Company>
-		<Copyright>© 2022 STÜBER SYSTEMS GmbH</Copyright>
+		<Copyright>© 2023 STÜBER SYSTEMS GmbH</Copyright>
 		<Product>ENBREA UNTIS.XML</Product>
 		<Description>Reader class for Untis XML export files</Description>
 		<PackageLicenseUrl></PackageLicenseUrl>
