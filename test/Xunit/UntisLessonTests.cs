@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2022 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) 2023 STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2022 STÜBER SYSTEMS GmbH
+ *    Copyright (C) 2023 STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -42,6 +42,20 @@ namespace Enbrea.Untis.Xml.Tests
             Assert.Equal(new DateOnly(2009, 8, 25).AddDays(42), enumerator.Current);
             Assert.True(enumerator.MoveNext());
             Assert.Equal(new DateOnly(2009, 8, 25).AddDays(70), enumerator.Current);
+        }
+
+        [Fact]
+        public void Test_GetFirstDateInstance()
+        {
+            var lesson = new UntisLesson()
+            {
+                ValidFrom = new DateOnly(2021, 2, 2),
+                ValidTo = new DateOnly(2021, 4, 26)
+            };
+
+            var date = lesson.GetFirstDateInstance(DayOfWeek.Thursday);
+
+            Assert.Equal(new DateOnly(2021, 2, 4), date);
         }
     }
 }
