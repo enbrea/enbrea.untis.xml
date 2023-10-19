@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2022 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) 2023 STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2022 STÜBER SYSTEMS GmbH
+ *    Copyright (C) 2023 STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -53,6 +53,23 @@ namespace Enbrea.Untis.Xml
                     currentDate = currentDate.AddDays(7);
                 }
             }
+        }
+
+        public static DateOnly GetFirstDateInstance(this UntisLesson lesson, DayOfWeek day)
+        {
+            var startDate = lesson.ValidFrom;
+            var currentDate = startDate;
+
+            if (currentDate.DayOfWeek > day)
+            {
+                currentDate = currentDate.AddDays(7).AddDays(day - startDate.DayOfWeek);
+            }
+            else if (currentDate.DayOfWeek < day)
+            {
+                currentDate = currentDate.AddDays(day - startDate.DayOfWeek);
+            }
+
+            return currentDate;
         }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<document version="3.0" xmlns="https://untis.at/untis/XmlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://untis.at/untis/XmlInterface https://www.untis.at/downloads/xsd/XmlInterface-3.0.xsd" date="20201117" time="193708">
+<document version="3.1" xmlns="https://untis.at/untis/XmlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://untis.at/untis/XmlInterface https://www.untis.at/fileadmin/downloads/xsd/XmlInterface-3.1.xsd" date="20201117" time="193708">
   <general>
     <schoolname>Test Schule</schoolname>
     <schoolnumber>12345</schoolnumber>
