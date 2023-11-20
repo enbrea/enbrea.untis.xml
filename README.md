@@ -5,7 +5,7 @@
 
 A .NET library for reading XML export files from the timetabling software [Untis](https://www.untis.at/en). 
 
-+ Supports .NET 6 and .NET 7
++ Supports .NET 6, .NET 7 and .NET 8
 + Supports xml files which are compatible with the [XML Schema Definition 3.1](https://platform.untis.at/downloads/xsd/XmlInterface-3.1.xsd) and [XML Schema Definition 3.0](https://platform.untis.at/downloads/xsd/XmlInterface-3.0.xsd)
 
 ## Installation
