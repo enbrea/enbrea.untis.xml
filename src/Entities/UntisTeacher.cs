@@ -10,6 +10,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 
 namespace Enbrea.Untis.Xml
 {
@@ -24,7 +25,9 @@ namespace Enbrea.Untis.Xml
         public string DepartmentId { get; set; }
         public string DescriptionId { get; set; }
         public string Email { get; set; }
+        public string ExternalName { get; set; }
         public string FirstName { get; set; }
+        public string Flags { get; set; }
         public string ForegroundColor { get; set; }
         public string ForeignKey { get; set; }
         public UntisGender? Gender { get; set; }
@@ -32,10 +35,14 @@ namespace Enbrea.Untis.Xml
         public string LongName { get; set; }
         public string Mobile { get; set; }
         public string Phone { get; set; }
+        public List<UntisTeacherQualification> Qualifications { get; set; }
         public string RoomId { get; set; }
+        public string StaffNo { get; set; }
+        public string StaffNo2 { get; set; }
         public string Status { get; set; }
         public string Text { get; set; }
         public string Text2 { get; set; }
         public string Title { get; set; }
+        public string WeekTarget { get; set; }
     }
 }

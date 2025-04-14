@@ -22,11 +22,17 @@ namespace Enbrea.Untis.Xml
         public string BackgroundColor { get; set; }
         public string DepartmentId { get; set; }
         public string DescriptionId { get; set; }
+        public string ExternalName { get; set; }
+        public string Flags { get; set; }
         public string ForegroundColor { get; set; }
         public string ForeignKey { get; set; }
+        public string GroupNumber { get; set; }
         public string LessonTableId { get; set; }
         public string Level { get; set; }
         public string LongName { get; set; }
+        public string MasterClassId { get; set; }
+        public uint? NumberOfFemaleStudents { get; set; }
+        public uint? NumberOfMaleStudents { get; set; }
         public string RoomId { get; set; }
         public string TeacherId { get; set; }
         public string Text { get; set; }

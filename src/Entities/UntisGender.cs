@@ -16,6 +16,6 @@ namespace Enbrea.Untis.Xml
     /// </summary>
     public enum UntisGender
     {
-        Female, Male, Divers
+        Female, Male, Diverse
     }
 }

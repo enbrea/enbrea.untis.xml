@@ -24,6 +24,7 @@ namespace Enbrea.Untis.Xml
         public string DescriptionId { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
+        public string Flags { get; set; }
         public string ForegroundColor { get; set; }
         public string ForeignKey { get; set; }
         public UntisGender? Gender { get; set; }

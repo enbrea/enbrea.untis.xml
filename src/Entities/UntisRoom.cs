@@ -20,8 +20,11 @@ namespace Enbrea.Untis.Xml
         public uint? Capacity { get; set; }
         public string DepartmentId { get; set; }
         public string DescriptionId { get; set; }
+        public string ExternalName { get; set; }
+        public string Flags { get; set; }
         public string ForegroundColor { get; set; }
         public string ForeignKey { get; set; }
+        public string GroupId { get; set; }
         public string LongName { get; set; }
         public string Text { get; set; }
     }

@@ -9,17 +9,20 @@
  */
 #endregion
 
+using System.Collections.Generic;
+
 namespace Enbrea.Untis.Xml
 {
     /// <summary>
-    /// Represents the Untis XML type "XmlDescription"
+    /// Represents the Untis XML type "XmlRoomGroup" 
     /// </summary>
-    public class UntisDescription : UntisEntityWithShortName
+    public class UntisRoomGroup : UntisEntityWithShortName
     {
         public string BackgroundColor { get; set; }
-        public string Flags { get; set; }
         public string ForegroundColor { get; set; }
+        public string ForeignData { get; set; }
         public string ForeignKey { get; set; }
         public string LongName { get; set; }
+        public List<string> RoomIds { get; set; }
     }
 }

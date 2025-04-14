@@ -19,7 +19,9 @@ namespace Enbrea.Untis.Xml
         public string Alias { get; set; }
         public string BackgroundColor { get; set; }
         public string DescriptionId { get; set; }
+        public string Flags { get; set; }
         public string ForegroundColor { get; set; }
+        public string ForeignData { get; set; }
         public string ForeignKey { get; set; }
         public string Group { get; set; }
         public string LongName { get; set; }

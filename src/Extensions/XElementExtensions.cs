@@ -83,6 +83,19 @@ namespace Enbrea.Untis.Xml
             }
         }
 
+        public static double GetDouble(this XElement xElement, string name)
+        {
+            var subElement = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == name);
+            if (subElement != null)
+            {
+                return double.Parse(subElement.Value, NumberStyles.Any, CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                throw new InvalidDataException($"Value not found.");
+            }
+        }
+
         public static TimeSpan? GetDurationOrDefault(this XElement xElement, string name)
         {
             var subElement = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == name);
@@ -108,7 +121,7 @@ namespace Enbrea.Untis.Xml
                 {
                     "F" => UntisGender.Female,
                     "M" => UntisGender.Male,
-                    "D" => UntisGender.Divers,
+                    "I" => UntisGender.Diverse,
                     _ => null
                 };
             }
@@ -225,7 +238,7 @@ namespace Enbrea.Untis.Xml
                     };
                 }
             }
-            return result; 
+            return result;
         }
 
         public static string GetReferenceId(this XElement xElement, string name)
@@ -282,6 +295,24 @@ namespace Enbrea.Untis.Xml
             }
         }
 
+        public static List<UntisTeacherQualification> GetTeacherQualifications(this XElement xElement, string name)
+        {
+            var qualificationList = new List<UntisTeacherQualification>();
+            var subElement = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == name);
+            if (subElement != null)
+            {
+                foreach (var xmlElement in subElement.Elements())
+                {
+                    qualificationList.Add(new UntisTeacherQualification
+                    {
+                        SubjectId = xmlElement.Attribute("subject") != null ? xmlElement.Attribute("subject").Value : null,
+                        FromLevel = xmlElement.Attribute("from_level") != null ? xmlElement.Attribute("from_level").Value : null,
+                        ToLevel = xmlElement.Attribute("to_level") != null ? xmlElement.Attribute("to_level").Value : null
+                    }); ;
+                }
+            }
+            return qualificationList;
+        }
         public static TimeSpan GetTime(this XElement xElement, string name)
         {
             var subElement = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == name);
@@ -349,7 +380,6 @@ namespace Enbrea.Untis.Xml
                 throw new InvalidDataException($"Value not found.");
             }
         }
-
         public static uint GetUIntOrDefault(this XElement xElement, string name)
         {
             var subElement = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == name);

@@ -9,17 +9,19 @@
  */
 #endregion
 
+using System;
+
 namespace Enbrea.Untis.Xml
 {
     /// <summary>
-    /// Represents the Untis XML type "XmlDescription"
+    /// Represents the Untis XML type "XmlReductionReason" 
     /// </summary>
-    public class UntisDescription : UntisEntityWithShortName
+    public class UntisReductionReason : UntisEntityWithShortName
     {
         public string BackgroundColor { get; set; }
-        public string Flags { get; set; }
+        public string Description { get; set; }
         public string ForegroundColor { get; set; }
-        public string ForeignKey { get; set; }
         public string LongName { get; set; }
+        public string Text { get; set; }
     }
 }

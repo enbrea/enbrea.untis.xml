@@ -29,21 +29,10 @@ namespace Enbrea.Untis.Xml.Tests
         [Fact]
         public void Test_GeneralSettings()
         {
-            Assert.Equal((uint)12345, _untisDocument.GeneralSettings.SchoolNo);
+            Assert.Equal("12345", _untisDocument.GeneralSettings.SchoolNo);
             Assert.Equal("Test Schule", _untisDocument.GeneralSettings.SchoolName);
             Assert.Equal(new DateOnly(2009, 8, 24), _untisDocument.GeneralSettings.TermBeginDate);
             Assert.Equal(new DateOnly(2010, 7, 16), _untisDocument.GeneralSettings.TermEndDate);
-        }
-
-        [Fact]
-        public void Test_TimeGrids()
-        {
-            Assert.Single(_untisDocument.TimeGrids);
-            Assert.Null(_untisDocument.TimeGrids[0].Name);
-            Assert.Equal(DayOfWeek.Monday, _untisDocument.TimeGrids[0].Slots[0].Day);
-            Assert.Equal((uint)1, _untisDocument.TimeGrids[0].Slots[0].Period);
-            Assert.Equal(new TimeSpan(7, 50, 0), _untisDocument.TimeGrids[0].Slots[0].StartTime);
-            Assert.Equal(new TimeSpan(8, 35, 0), _untisDocument.TimeGrids[0].Slots[0].EndTime);
         }
 
         [Fact]
@@ -74,6 +63,47 @@ namespace Enbrea.Untis.Xml.Tests
             Assert.Equal(new TimeSpan(14, 15, 0), _untisDocument.Lessons[0].Times[1].SlotGroupStartTime);
             Assert.Null(_untisDocument.Lessons[0].Times[1].SlotGroupLastSlot);
             Assert.Null(_untisDocument.Lessons[0].Times[1].SlotGroupEndTime);
+        }
+
+        [Fact]
+        public void Test_ReductionReasons()
+        {
+            Assert.Single(_untisDocument.ReductionReasons);
+            Assert.Equal("RR_Brand", _untisDocument.ReductionReasons[0].Id);
+            Assert.Equal("Brandschutzbeauftragter", _untisDocument.ReductionReasons[0].LongName);
+        }
+
+        [Fact]
+        public void Test_Reductions()
+        {
+            Assert.Equal(2, _untisDocument.Reductions.Count);
+            Assert.Equal("RD_1", _untisDocument.Reductions[0].Id);
+            Assert.Equal("TR_AnnKo", _untisDocument.Reductions[0].TeacherId);
+            Assert.Equal("RR_Brand", _untisDocument.Reductions[0].ReasonId);
+            Assert.Equal(6.000, _untisDocument.Reductions[0].Value);
+        }
+
+        [Fact]
+        public void Test_Teachers()
+        {
+            Assert.Equal("TR_AnnKo", _untisDocument.Teachers[0].Id);
+            Assert.Equal("Kofi", _untisDocument.Teachers[0].FirstName);
+            Assert.Equal("Annan", _untisDocument.Teachers[0].LastName);
+            Assert.Equal(UntisGender.Male, _untisDocument.Teachers[0].Gender);
+            Assert.Equal("18.000", _untisDocument.Teachers[0].WeekTarget);
+            Assert.Single(_untisDocument.Teachers[0].Qualifications);
+            Assert.Equal("SU_BK", _untisDocument.Teachers[0].Qualifications[0].SubjectId);
+        }
+
+        [Fact]
+        public void Test_TimeGrids()
+        {
+            Assert.Single(_untisDocument.TimeGrids);
+            Assert.Null(_untisDocument.TimeGrids[0].Name);
+            Assert.Equal(DayOfWeek.Monday, _untisDocument.TimeGrids[0].Slots[0].Day);
+            Assert.Equal((uint)1, _untisDocument.TimeGrids[0].Slots[0].Period);
+            Assert.Equal(new TimeSpan(7, 50, 0), _untisDocument.TimeGrids[0].Slots[0].StartTime);
+            Assert.Equal(new TimeSpan(8, 35, 0), _untisDocument.TimeGrids[0].Slots[0].EndTime);
         }
     }
 }
