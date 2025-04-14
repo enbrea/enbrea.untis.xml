@@ -9,16 +9,17 @@
  */
 #endregion
 
+using System;
+
 namespace Enbrea.Untis.Xml
 {
     /// <summary>
-    /// An abstract base class with additional property
+    /// Represents the Untis XML type "XmlTeacherQualification" 
     /// </summary>
-    public abstract class UntisEntityWithShortName : UntisEntity
+    public class UntisTeacherQualification
     {
-        public string ShortName 
-        { 
-            get { return Id[3..];  } 
-        }
+        public string SubjectId { get; set; }
+        public string FromLevel { get; set; }
+        public string ToLevel { get; set; }
     }
 }

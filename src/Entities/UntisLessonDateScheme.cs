@@ -1,14 +1,14 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2023 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) STÜBER SYSTEMS GmbH
 /*
  *    ENBREA UNTIS.XML
  *
- *    Copyright (C) 2023 STÜBER SYSTEMS GmbH
+ *    Copyright (C) STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0.
  *
  */
 
-#endregion ENBREA - Copyright (C) 2023 STÜBER SYSTEMS GmbH
+#endregion ENBREA - Copyright (C) STÜBER SYSTEMS GmbH
 
 namespace Enbrea.Untis.Xml
 {

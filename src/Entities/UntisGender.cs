@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2023 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2023 STÜBER SYSTEMS GmbH
+ *    Copyright (C) STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -16,6 +16,6 @@ namespace Enbrea.Untis.Xml
     /// </summary>
     public enum UntisGender
     {
-        Female, Male, Divers
+        Female, Male, Diverse
     }
 }

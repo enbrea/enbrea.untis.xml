@@ -1,8 +1,8 @@
-﻿#region ENBREA UNTIS.XML - Copyright (C) 2023 STÜBER SYSTEMS GmbH
+﻿#region ENBREA UNTIS.XML - Copyright (C) STÜBER SYSTEMS GmbH
 /*    
  *    ENBREA UNTIS.XML
  *    
- *    Copyright (C) 2023 STÜBER SYSTEMS GmbH
+ *    Copyright (C) STÜBER SYSTEMS GmbH
  *
  *    Licensed under the MIT License, Version 2.0. 
  * 
@@ -32,7 +32,10 @@ namespace Enbrea.Untis.Xml
         public List<UntisLessonDateScheme> LessonDateSchemes = new();
         public List<UntisLesson> Lessons = new();
         public List<UntisLessonsTable> LessonsTables = new();
-        public List<UntisRoom> Rooms = new ();
+        public List<UntisReductionReason> ReductionReasons = new();
+        public List<UntisReduction> Reductions = new();
+        public List<UntisRoomGroup> RoomGroups = new();
+        public List<UntisRoom> Rooms = new();
         public List<UntisStudentGroup> StudentGroups = new();
         public List<UntisStudent> Students = new();
         public List<UntisSubject> Subjects = new();
@@ -47,6 +50,9 @@ namespace Enbrea.Untis.Xml
         private readonly string LessonDateSchemeXPathExpr = "//xs:document/xs:lesson_date_schemes/xs:lesson_date_scheme";
         private readonly string LessonsTableXPathExpr = "//xs:document/xs:lesson_tables/xs:lesson_table";
         private readonly string LessonXPathExpr = "//xs:document/xs:lessons/xs:lesson";
+        private readonly string ReductionReasonXPathExpr = "//xs:document/xs:reduction_reasons/xs:reduction_reason";
+        private readonly string ReductionXPathExpr = "//xs:document/xs:reductions/xs:reduction";
+        private readonly string RoomGroupXPathExpr = "//xs:document/xs:roomgroups/xs:roomgroup";
         private readonly string RoomXPathExpr = "//xs:document/xs:rooms/xs:room";
         private readonly string StudentGroupXPathExpr = "//xs:document/xs:studentgroups/xs:studentgroup";
         private readonly string StudentXPathExpr = "//xs:document/xs:students/xs:student";
@@ -71,10 +77,14 @@ namespace Enbrea.Untis.Xml
             ReadElements(xmlDoc, xmlNamespaceManager, LessonDateSchemeXPathExpr, (e) => ReadLessonDateSchemes(e));
             ReadElements(xmlDoc, xmlNamespaceManager, LessonsTableXPathExpr, (e) => ReadLessonsTables(e));
             ReadElements(xmlDoc, xmlNamespaceManager, LessonXPathExpr, (e) => ReadLessons(e));
+            ReadElements(xmlDoc, xmlNamespaceManager, RoomGroupXPathExpr, (e) => ReadRoomGroups(e));
             ReadElements(xmlDoc, xmlNamespaceManager, RoomXPathExpr, (e) => ReadRooms(e));
             ReadElements(xmlDoc, xmlNamespaceManager, StudentGroupXPathExpr, (e) => ReadStudentGroups(e));
             ReadElements(xmlDoc, xmlNamespaceManager, StudentXPathExpr, (e) => ReadStudents(e));
             ReadElements(xmlDoc, xmlNamespaceManager, SubjectXPathExpr, (e) => ReadSubjects(e));
+            ReadElements(xmlDoc, xmlNamespaceManager, TeacherXPathExpr, (e) => ReadTeachers(e));
+            ReadElements(xmlDoc, xmlNamespaceManager, ReductionXPathExpr, (e) => ReadReductions(e));
+            ReadElements(xmlDoc, xmlNamespaceManager, ReductionReasonXPathExpr, (e) => ReadReductionReasons(e));
             ReadElements(xmlDoc, xmlNamespaceManager, TeacherXPathExpr, (e) => ReadTeachers(e));
             ReadElements(xmlDoc, xmlNamespaceManager, TimeGridSlotPathExpr, (e) => ReadTimeGridSlots(e));
         }
@@ -165,6 +175,12 @@ namespace Enbrea.Untis.Xml
                 ValidTo = xmlElement.GetDateOrDefault("eenddate"),
                 ForeignKey = xmlElement.GetValueOrDefault("foreignkey"),
                 TimeGridId = xmlElement.GetValueOrDefault("timegrid"),
+                NumberOfFemaleStudents = xmlElement.GetUIntOrDefault("studentsfemale"),
+                NumberOfMaleStudents = xmlElement.GetUIntOrDefault("studentsmale"),
+                GroupNumber = xmlElement.GetValueOrDefault("class_group_number"),
+                MasterClassId = xmlElement.GetValueOrDefault("master_class"),
+                ExternalName = xmlElement.GetValueOrDefault("external_name"),
+                Flags = xmlElement.GetValueOrDefault("flags")
             });
         }
 
@@ -196,7 +212,8 @@ namespace Enbrea.Untis.Xml
                 LongName = xmlElement.GetValueOrDefault("longname"),
                 ForegroundColor = xmlElement.GetValueOrDefault("forecolor"),
                 BackgroundColor = xmlElement.GetValueOrDefault("backcolor"),
-                ForeignKey = xmlElement.GetValueOrDefault("foreignkey")
+                ForeignKey = xmlElement.GetValueOrDefault("foreignkey"),
+                Flags = xmlElement.GetValueOrDefault("flags")
             });
         }
 
@@ -229,12 +246,15 @@ namespace Enbrea.Untis.Xml
         private void ReadGeneralSettings(XElement xmlElement)
         {
             GeneralSettings.SchoolName = xmlElement.GetValueOrDefault("schoolname");
-            GeneralSettings.SchoolNo = xmlElement.GetUIntOrDefault("schoolnumber");
+            GeneralSettings.SchoolNo = xmlElement.GetValueOrDefault("schoolnumber");
+            GeneralSettings.SchoolType = xmlElement.GetValueOrDefault("schooltype");
             GeneralSettings.SchoolYearBeginDate = xmlElement.GetDate("schoolyearbegindate");
             GeneralSettings.SchoolYearEndDate = xmlElement.GetDate("schoolyearenddate");
             GeneralSettings.TermName = xmlElement.GetValueOrDefault("termname");
             GeneralSettings.TermBeginDate = xmlElement.GetDate("termbegindate");
             GeneralSettings.TermEndDate = xmlElement.GetDate("termenddate");
+            GeneralSettings.TermEndDate = xmlElement.GetDate("termenddate");
+            GeneralSettings.WeekPeriodicity = xmlElement.GetUIntOrDefault("week_periodicity");
         }
 
         /// <summary>
@@ -280,6 +300,8 @@ namespace Enbrea.Untis.Xml
                 Slots = xmlElement.GetUIntOrDefault("periods"),
                 Duration = xmlElement.GetDurationOrDefault("duration"),
                 TeacherId = xmlElement.GetReferenceIdOrDefault("lesson_teacher"),
+                TeacherValue = xmlElement.GetUIntOrDefault("teacher_value"),
+                TeacherStatCode= xmlElement.GetValueOrDefault("teacher_statcode"),
                 SubjectId = xmlElement.GetReferenceIdOrDefault("lesson_subject"),
                 ClassIds = xmlElement.GetReferenceIdArray("lesson_classes", "CL"),
                 StudentGroupIds = xmlElement.GetReferenceIdArray("lesson_studentgroups", "SG"),
@@ -295,7 +317,17 @@ namespace Enbrea.Untis.Xml
                 Occurence = xmlElement.GetValueOrDefault("occurence"),
                 ForegroundColor = xmlElement.GetValueOrDefault("forecolor"),
                 BackgroundColor = xmlElement.GetValueOrDefault("backcolor"),
-                Times = xmlElement.GetTimeElements("times")
+                Times = xmlElement.GetTimeElements("times"),
+                StatCodes = xmlElement.GetValueOrDefault("statcodes"),
+                Periods = xmlElement.GetUIntOrDefault("periods"),
+                YearlyPeriods = xmlElement.GetUIntOrDefault("yearly_periods"),
+                Description = xmlElement.GetValueOrDefault("lesson_description"),
+                Text = xmlElement.GetValueOrDefault("text"),
+                Text1 = xmlElement.GetValueOrDefault("text1"),
+                Text2 = xmlElement.GetValueOrDefault("text2"),
+                Flags = xmlElement.GetValueOrDefault("flags"),
+                ForeignKey = xmlElement.GetValueOrDefault("foreignkey"),
+                ForeignData = xmlElement.GetValueOrDefault("foreigndata")
             });
         }
 
@@ -316,6 +348,59 @@ namespace Enbrea.Untis.Xml
         }
 
         /// <summary>
+        /// Maps XML node to <see cref="UntisReductionReason"/> instance
+        /// </summary>
+        /// <param name="xmlElement">XML node</param>
+        private void ReadReductionReasons(XElement xmlElement)
+        {
+            ReductionReasons.Add(new UntisReductionReason
+            {
+                Id = xmlElement.Attribute("id").Value,
+                LongName = xmlElement.GetValueOrDefault("longname"),
+                Description = xmlElement.GetValueOrDefault("reduction_description"),
+                Text = xmlElement.GetValueOrDefault("text"),
+                ForegroundColor = xmlElement.GetValueOrDefault("forecolor"),
+                BackgroundColor = xmlElement.GetValueOrDefault("backcolor")
+            });
+        }
+
+        /// <summary>
+        /// Maps XML node to <see cref="UntisReduction"/> instance
+        /// </summary>
+        /// <param name="xmlElement">XML node</param>
+        private void ReadReductions(XElement xmlElement)
+        {
+            Reductions.Add(new UntisReduction
+            {
+                Id = xmlElement.Attribute("id").Value,
+                TeacherId = xmlElement.GetValueOrDefault("reduction_teacher"),
+                ReasonId = xmlElement.GetValueOrDefault("reduction_reason"),
+                Value = xmlElement.GetDouble("value"),
+                Text = xmlElement.GetValueOrDefault("text"),
+                BeginDate = xmlElement.GetDateOrDefault("begindate"),
+                EndDate = xmlElement.GetDateOrDefault("enddate")
+            });
+        }
+
+        /// <summary>
+        /// Maps XML node to <see cref="UntisRoomGroup"/> instance
+        /// </summary>
+        /// <param name="xmlElement">XML node</param>
+        private void ReadRoomGroups(XElement xmlElement)
+        {
+            RoomGroups.Add(new UntisRoomGroup
+            {
+                Id = xmlElement.Attribute("id").Value,
+                LongName = xmlElement.GetValueOrDefault("longname"),
+                RoomIds = xmlElement.GetReferenceIdList("rooms"),
+                ForegroundColor = xmlElement.GetValueOrDefault("forecolor"),
+                BackgroundColor = xmlElement.GetValueOrDefault("backcolor"),
+                ForeignKey = xmlElement.GetValueOrDefault("foreignkey"),
+                ForeignData = xmlElement.GetValueOrDefault("foreigndata")
+            });
+        }
+
+        /// <summary>
         /// Maps XML node to <see cref="UntisRoom"/> instance
         /// </summary>
         /// <param name="xmlElement">XML node</param>
@@ -327,11 +412,14 @@ namespace Enbrea.Untis.Xml
                 LongName = xmlElement.GetValueOrDefault("longname"),
                 ForegroundColor = xmlElement.GetValueOrDefault("forecolor"),
                 BackgroundColor = xmlElement.GetValueOrDefault("backcolor"),
+                GroupId = xmlElement.GetReferenceIdOrDefault("roomgroups"),
                 DescriptionId = xmlElement.GetReferenceIdOrDefault("room_description"),
                 DepartmentId = xmlElement.GetReferenceIdOrDefault("room_department"),
                 Text = xmlElement.GetValueOrDefault("text"),
+                ExternalName = xmlElement.GetValueOrDefault("external_name"),
                 ForeignKey = xmlElement.GetValueOrDefault("foreignkey"),
-                Capacity = xmlElement.GetUIntOrDefault("capacity")
+                Capacity = xmlElement.GetUIntOrDefault("capacity"),
+                Flags = xmlElement.GetValueOrDefault("flags"),
             });
         }
 
@@ -373,7 +461,8 @@ namespace Enbrea.Untis.Xml
                 ForegroundColor = xmlElement.GetValueOrDefault("forecolor"),
                 BackgroundColor = xmlElement.GetValueOrDefault("backcolor"),
                 ForeignKey = xmlElement.GetValueOrDefault("foreignkey"),
-                Text = xmlElement.GetValueOrDefault("text")
+                Text = xmlElement.GetValueOrDefault("text"),
+                Flags = xmlElement.GetValueOrDefault("flags")
             });
         }
 
@@ -394,7 +483,9 @@ namespace Enbrea.Untis.Xml
                 Text = xmlElement.GetValueOrDefault("text"),
                 RoomId = xmlElement.GetReferenceIdOrDefault("subject_room"),
                 DescriptionId = xmlElement.GetReferenceIdOrDefault("subject_description"),
-                ForeignKey = xmlElement.GetValueOrDefault("foreignkey")
+                ForeignKey = xmlElement.GetValueOrDefault("foreignkey"),
+                ForeignData = xmlElement.GetValueOrDefault("foreigndata"),
+                Flags = xmlElement.GetValueOrDefault("flags"),
             });
         }
 
@@ -425,7 +516,12 @@ namespace Enbrea.Untis.Xml
                 DescriptionId = xmlElement.GetReferenceIdOrDefault("teacher_description"),
                 DepartmentId = xmlElement.GetReferenceIdOrDefault("teacher_department"),
                 RoomId = xmlElement.GetReferenceIdOrDefault("teacher_room"),
-                ForeignKey = xmlElement.GetValueOrDefault("foreignkey")
+                Qualifications = xmlElement.GetTeacherQualifications("teacher_qualifications"),
+                ForeignKey = xmlElement.GetValueOrDefault("foreignkey"),
+                StaffNo = xmlElement.GetValueOrDefault("payrollnumber"),
+                StaffNo2 = xmlElement.GetValueOrDefault("personnel_number_2"),
+                WeekTarget = xmlElement.GetValueOrDefault("weektarget"),
+                ExternalName = xmlElement.GetValueOrDefault("external_name")
             });
         }
 

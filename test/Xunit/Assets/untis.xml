@@ -1201,15 +1201,6 @@
     <subject id="SU_NN"/>
   </subjects>
   <teachers>
-    <teacher id="TR_AhtMa">
-      <forename>Martti</forename>
-      <surname>Ahtisaari</surname>
-      <weektarget>26.000</weektarget>
-      <teacher_qualifications>
-        <teacher_qualification subject="SU_M"/>
-        <teacher_qualification subject="SU_SK"/>
-      </teacher_qualifications>
-    </teacher>
     <teacher id="TR_AnnKo">
       <forename>Kofi</forename>
       <surname>Annan</surname>
@@ -1217,6 +1208,15 @@
       <weektarget>18.000</weektarget>
       <teacher_qualifications>
         <teacher_qualification subject="SU_BK"/>
+      </teacher_qualifications>
+    </teacher>
+    <teacher id="TR_AhtMa">
+      <forename>Martti</forename>
+      <surname>Ahtisaari</surname>
+      <weektarget>26.000</weektarget>
+      <teacher_qualifications>
+        <teacher_qualification subject="SU_M"/>
+        <teacher_qualification subject="SU_SK"/>
       </teacher_qualifications>
     </teacher>
     <teacher id="TR_BecHe">
@@ -8445,4 +8445,21 @@
       </lesson_table_subjects>
     </lesson_table>
   </lesson_tables>
+  <reductions>
+    <reduction id="RD_1">
+      <reduction_teacher>TR_AnnKo</reduction_teacher>
+      <reduction_reason>RR_Brand</reduction_reason>
+      <value>6.000</value>
+    </reduction>
+    <reduction id="RD_2">
+      <reduction_teacher>TR_AhtMa</reduction_teacher>
+      <reduction_reason>RR_Brand</reduction_reason>
+      <value>1.000</value>
+    </reduction>
+  </reductions>
+  <reduction_reasons>
+    <reduction_reason id="RR_Brand">
+      <longname>Brandschutzbeauftragter</longname>
+    </reduction_reason>
+  </reduction_reasons>
 </document>
