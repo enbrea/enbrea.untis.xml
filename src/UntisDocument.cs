@@ -24,23 +24,23 @@ namespace Enbrea.Untis.Xml
     /// </summary>
     public class UntisDocument
     {
-        public List<UntisClass> Classes = new();
-        public List<UntisDepartment> Departments = new();
-        public List<UntisDescription> Descriptions = new();
+        public List<UntisClass> Classes = [];
+        public List<UntisDepartment> Departments = [];
+        public List<UntisDescription> Descriptions = [];
         public UntisGeneralSettings GeneralSettings = new();
-        public List<UntisHoliday> Holidays = new();
-        public List<UntisLessonDateScheme> LessonDateSchemes = new();
-        public List<UntisLesson> Lessons = new();
-        public List<UntisLessonsTable> LessonsTables = new();
-        public List<UntisReductionReason> ReductionReasons = new();
-        public List<UntisReduction> Reductions = new();
-        public List<UntisRoomGroup> RoomGroups = new();
-        public List<UntisRoom> Rooms = new();
-        public List<UntisStudentGroup> StudentGroups = new();
-        public List<UntisStudent> Students = new();
-        public List<UntisSubject> Subjects = new();
-        public List<UntisTeacher> Teachers = new();
-        public List<UntisTimeGrid> TimeGrids = new();
+        public List<UntisHoliday> Holidays = [];
+        public List<UntisLessonDateScheme> LessonDateSchemes = [];
+        public List<UntisLesson> Lessons = [];
+        public List<UntisLessonsTable> LessonsTables = [];
+        public List<UntisReductionReason> ReductionReasons = [];
+        public List<UntisReduction> Reductions = [];
+        public List<UntisRoomGroup> RoomGroups = [];
+        public List<UntisRoom> Rooms = [];
+        public List<UntisStudentGroup> StudentGroups = [];
+        public List<UntisStudent> Students = [];
+        public List<UntisSubject> Subjects = [];
+        public List<UntisTeacher> Teachers = [];
+        public List<UntisTimeGrid> TimeGrids = [];
 
         private readonly string ClassXPathExpr = "//xs:document/xs:classes/xs:class";
         private readonly string DepartmentXPathExpr = "//xs:document/xs:departments/xs:department";
@@ -86,7 +86,7 @@ namespace Enbrea.Untis.Xml
             ReadElements(xmlDoc, xmlNamespaceManager, ReductionXPathExpr, (e) => ReadReductions(e));
             ReadElements(xmlDoc, xmlNamespaceManager, ReductionReasonXPathExpr, (e) => ReadReductionReasons(e));
             ReadElements(xmlDoc, xmlNamespaceManager, TeacherXPathExpr, (e) => ReadTeachers(e));
-            ReadElements(xmlDoc, xmlNamespaceManager, TimeGridSlotPathExpr, (e) => ReadTimeGridSlots(e));
+            ReadElements(xmlDoc, xmlNamespaceManager, TimeGridSlotPathExpr, (e) => ReadTimeGridSlots(e, GeneralSettings.TermBeginDate));
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace Enbrea.Untis.Xml
                 Occurence = xmlElement.GetValueOrDefault("occurence"),
                 ForegroundColor = xmlElement.GetValueOrDefault("forecolor"),
                 BackgroundColor = xmlElement.GetValueOrDefault("backcolor"),
-                Times = xmlElement.GetTimeElements("times"),
+                Times = xmlElement.GetTimeElements("times", xmlElement.GetDate("effectivebegindate")),
                 StatCodes = xmlElement.GetValueOrDefault("statcodes"),
                 Periods = xmlElement.GetUIntOrDefault("periods"),
                 YearlyPeriods = xmlElement.GetUIntOrDefault("yearly_periods"),
@@ -529,7 +529,8 @@ namespace Enbrea.Untis.Xml
         /// Maps XML node to <see cref="UntisTimeGridSlot"/> instance
         /// </summary>
         /// <param name="xmlElement">XML node</param>
-        private void ReadTimeGridSlots(XElement xmlElement)
+        /// <param name="startDate">Reference date for weekday calculation</param>
+        private void ReadTimeGridSlots(XElement xmlElement, DateOnly startDate)
         {
             var timeGridName = xmlElement.GetValueOrDefault("timegrid");
 
@@ -545,7 +546,7 @@ namespace Enbrea.Untis.Xml
             {
                 Id = xmlElement.Attribute("id").Value,
                 Period = xmlElement.GetUInt("period"),
-                Day = xmlElement.GetDay("day"),
+                Day = xmlElement.GetDay("day", startDate),
                 StartTime = xmlElement.GetTime("starttime"),
                 EndTime = xmlElement.GetTime("endtime"),
                 Label = xmlElement.GetValueOrDefault("label"),

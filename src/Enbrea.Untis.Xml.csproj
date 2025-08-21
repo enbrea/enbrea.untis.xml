@@ -8,10 +8,8 @@
 		<Copyright>© 2025 STÜBER SYSTEMS GmbH</Copyright>
 		<Product>ENBREA UNTIS.XML</Product>
 		<Description>Reader class for Untis XML export files</Description>
-		<PackageLicenseUrl></PackageLicenseUrl>
-		<RepositoryType />
-		<NeutralLanguage></NeutralLanguage>
-		<Version>0.10.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Version>0.10.0</Version>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/enbrea/enbrea.untis.xml</RepositoryUrl>
