@@ -11,6 +11,8 @@ stages:
 - stage: BuildAndTest  
   jobs:
   - job: 
+    variables:
+      NUGET_PACKAGES: '$(Pipeline.Workspace)/.nuget/packages'
     steps:
     - checkout: self
       persistCredentials: true
@@ -68,19 +70,20 @@ stages:
       inputs:
         command: 'build'
         projects: '*.sln'
-        arguments: '-c $(BuildConfiguration)'
+        arguments: '-c $(BuildConfiguration) --no-restore /p:ContinuousIntegrationBuild=true'
     - task: DotNetCoreCLI@2
       displayName: 'Test'
       inputs:
         command: 'test'
         projects: '*.sln'
-        arguments: '-c $(BuildConfiguration)'
+        arguments: '-c $(BuildConfiguration) --no-build'
         testRunTitle: 'Perform unit tests'
     - task: DotNetCoreCLI@2
       displayName: 'Pack'
       inputs:
         command: 'pack'
         packagesToPack: 'src/Enbrea.Untis.Xml.csproj'
+        arguments: '/p:ContinuousIntegrationBuild=true'
         nobuild: true
         versioningScheme: 'byEnvVar'
         versionEnvVar: 'SemVersion'
@@ -119,20 +122,52 @@ stages:
         publishFeedCredentials: 'STUEBER SYSTEMS | nuget.org'
 
 - stage: GitHub
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
   jobs:
   - job: 
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     steps:
     - checkout: self
-      persistCredentials: true
+      fetchDepth: 0
     - task: PowerShell@2
       displayName: 'Push to GitHub'
       inputs:
-        targetType: 'inline'
-        script: |
-          git remote add github https://$(PAT)@github.com/enbrea/enbrea.untis.xml.git
-          git fetch github
-          git checkout .
-          git push github HEAD:main
-          git push --tags github HEAD:main
+        targetType: inline
         pwsh: true
+        script: |
+
+          $ErrorActionPreference = 'Stop'
+
+          try {
+            
+            # Configure Git identity
+            git config user.name  'azure-devops-bot'
+            git config user.email 'azuredevops@stueber.nomail'
+
+            # Add 'github' remote
+            git remote add github "https://$(PAT)@github.com/enbrea/enbrea.untis.xml.git"
+
+            # Fetch remote main if it exists (ok to fail if repo is empty)
+            git fetch --prune github main
+            $fetchCode = $LASTEXITCODE
+
+            # If remote branch exists, only push when remote is an ancestor of HEAD (fast-forward safe)
+            if ($fetchCode -eq 0) {
+              git merge-base --is-ancestor github/main HEAD
+              if ($LASTEXITCODE -ne 0) {
+                Write-Error "Remote has commits not in local (or histories diverged). Aborting push."
+              }
+            }
+
+            # Push only the main branch (fast-forward or create remote if missing)
+            git push --tags github HEAD:refs/heads/main
+            if ($LASTEXITCODE -ne 0) { throw "git push failed with exit code $LASTEXITCODE" }
+            
+          }
+          finally {
+            
+            # Remove the remote so the PAT isn't left in .git/config
+            git remote remove github 2>$null | Out-Null
+            
+          }
+      env:
+        PAT: $(PAT)

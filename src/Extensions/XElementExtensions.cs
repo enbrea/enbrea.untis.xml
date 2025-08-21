@@ -60,22 +60,12 @@ namespace Enbrea.Untis.Xml
             }
         }
 
-        public static DayOfWeek GetDay(this XElement xElement, string name)
+        public static DayOfWeek GetDay(this XElement xElement, string name, DateOnly startDate)
         {
             var subElement = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == name);
             if (subElement != null)
             {
-                return subElement.Value switch
-                {
-                    "1" => DayOfWeek.Monday,
-                    "2" => DayOfWeek.Tuesday,
-                    "3" => DayOfWeek.Wednesday,
-                    "4" => DayOfWeek.Thursday,
-                    "5" => DayOfWeek.Friday,
-                    "6" => DayOfWeek.Saturday,
-                    "7" => DayOfWeek.Sunday,
-                    _ => throw new Exception("Error")
-                };
+                return startDate.AddDays(int.Parse(subElement.Value) - 1).DayOfWeek;
             }
             else
             {
@@ -329,7 +319,7 @@ namespace Enbrea.Untis.Xml
             }
         }
 
-        public static List<UntisLessonTime> GetTimeElements(this XElement xElement, string name)
+        public static List<UntisLessonTime> GetTimeElements(this XElement xElement, string name, DateOnly startDate)
         {
             var lessonTimeList = new List<UntisLessonTime>();
             var subElement = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == name);
@@ -340,7 +330,7 @@ namespace Enbrea.Untis.Xml
                 {
                     var newTimeElement = new UntisLessonTime
                     {
-                        Day = xmlElement.GetDay("assigned_day"),
+                        Day = xmlElement.GetDay("assigned_day", startDate),
                         Slot = xmlElement.GetUIntOrDefault("assigned_period"),
                         StartTime = xmlElement.GetTime("assigned_starttime"),
                         EndTime = xmlElement.GetTime("assigned_endtime"),
